@@ -1,0 +1,248 @@
+:root {
+    --primary-color: #558343;     /* 차분한 시그니처 초록색 */
+    --accent-color: #70a45b;      /* 상단 배지 포인트 컬러 */
+    --light-bg: #f5f9f2;          /* 하단 박스 연두빛 배경색 */
+    --border-color: #cbdcc4;      /* 부드러운 테두리 선 색상 */
+    --text-muted: #94a3b8;
+}
+
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    background-color: #fafdf9;
+    color: #334155;
+    margin: 0;
+    padding: 25px;
+}
+
+.container {
+    max-width: 100%;
+    width: fit-content;           /* 카드 전체 너비에 맞춰 유연하게 조절 */
+    min-width: 1250px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgb(85 131 67 / 0.06);
+    border: 1px solid #edf5ea;
+}
+
+/* 상단 타이틀 레이아웃 */
+.header-section {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.sub-quote {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.main-title {
+    color: var(--primary-color);
+    font-size: 2.3rem;
+    margin: 6px 0;
+    font-weight: 700;
+}
+
+.sub-title {
+    font-size: 0.85rem;
+    color: #6b8c5e;
+    margin: 0;
+}
+
+/* 7열 그리드 다이어리 */
+.grid-container {
+    display: grid;
+    /* ★ 피드백 반영: 가로 공간이 벙방하게 남지 않도록 210px -> 185px로 최적화 축소 */
+    grid-template-columns: repeat(7, 185px); 
+    gap: 16px;                               /* 박스끼리 겹치지 않는 예쁜 여백 유지 */
+    margin-bottom: 35px;
+    overflow-x: auto;                        /* 만약 화면이 좁아지면 가로 스크롤 제공 */
+    padding-bottom: 10px;
+}
+
+/* 카드 레이아웃 */
+.day-card {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background-color: #fff;
+    height: 155px;                           /* 줄어든 가로에 맞춰 세로 비율도 더 완벽해집니다 */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 6px rgba(85, 131, 67, 0.03);
+}
+
+/* 라운드 배지 탭 스타일 */
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #edf5ea;
+    padding-bottom: 6px;
+}
+
+.day-badge {
+    background-color: var(--accent-color);
+    color: #fff;
+    font-size: 0.72rem;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.day-date {
+    font-size: 0.72rem;
+    color: #8fa885;
+    outline: none;
+}
+
+.todo-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;             /* 내부 내용이 많아지면 카드 안에서 스크롤 */
+}
+.todo-list-container::-webkit-scrollbar { width: 3px; }
+.todo-list-container::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.73rem;
+}
+
+.todo-item input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+/* 185px 안에서 줄바꿈 없이 쏙 들어가게 세팅 */
+.todo-text {
+    outline: none;
+    flex-grow: 1;
+    white-space: nowrap;          /* 절대로 줄바꿈하지 않음 */
+    overflow: hidden;             /* 박스 밖으로 튀어나가 다른 박스를 침범하는 것 방지 */
+    text-overflow: ellipsis;      /* 185px보다 길어지면 ... 처리 */
+    padding: 1px 4px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+/* 수정하려고 누르면 은은한 파스텔 형광펜 효과 */
+.todo-text:focus {
+    background-color: #e6f3e2; 
+    color: #2b4720;            
+    overflow: visible;            /* 수정하는 순간만큼은 글자가 다 보이도록 설정 */
+    white-space: nowrap;
+}
+
+.todo-item.checked .todo-text {
+    text-decoration: line-through;
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.todo-item.checked .todo-text:focus {
+    text-decoration: none; 
+    opacity: 1;
+}
+
+.section-divider {
+    border: 0;
+    height: 1px;
+    background: var(--border-color);
+    margin: 40px 0;
+}
+
+/* 하단 정보 박스 공통 */
+.info-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    max-width: 1390px;            /* 줄어든 그리드 너비에 맞춰 하단 맥스 너비도 리밸런싱 */
+}
+
+.info-box {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 22px;
+    background-color: var(--light-bg);
+}
+
+.info-box h2 {
+    font-size: 1.05rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 18px;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* 학습 구성 및 저녁 이후 리스트 */
+.editable-list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.88rem;
+    line-height: 1.8;
+}
+
+.editable-list li {
+    outline: none;
+    margin-bottom: 6px;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.editable-list li:focus {
+    background-color: #e6f3e2;
+}
+
+/* 하루 루틴 줄 맞춤 인라인 에디터 */
+.routine-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.routine-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    padding: 3px 6px;
+    border-bottom: 1px dashed #d2e2cc;
+    border-radius: 3px;
+}
+
+.routine-time {
+    font-weight: bold;
+    color: #446635;
+    outline: none;
+    min-width: 90px;
+    border-radius: 2px;
+}
+
+.routine-text {
+    outline: none;
+    flex-grow: 1;
+    text-align: right;
+    border-radius: 2px;
+}
+
+.routine-time:focus, .routine-text:focus {
+    background-color: #e6f3e2;
+}
+
+.footer-note {
+    margin-top: 35px;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    font-weight: bold;
+}
